@@ -33,3 +33,5 @@ GAME
 *.exe
 *.out
 *.app
+
+.vscode
