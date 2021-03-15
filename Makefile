@@ -1,5 +1,5 @@
 # Makefile copiado (com permissão) do código da Cristiane Naves
-CC = g++
+CC = gcc
 RMDIR = rm -rf
 RM = rm -f
  
@@ -29,9 +29,9 @@ RM = del
  
 RUN =
  
-SDL_PATH = C:\SDL2\SDL2-2.0.5\x86_64-w64-mingw32
+SDL_PATH = C:\SDL-2.0.14
  
-DIRECTIVES += -I $(SDL_PATH)\include\SDL2
+DIRECTIVES += -I $(SDL_PATH)\include
  
 LIBS = -L $(SDL_PATH)\lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lm
  
