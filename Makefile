@@ -1,5 +1,5 @@
 # Makefile copiado (com permissão) do código da Cristiane Naves
-CC = gcc
+CC = g++
 RMDIR = rm -rf
 RM = rm -f
  
@@ -29,7 +29,7 @@ RM = del
  
 RUN =
  
-SDL_PATH = C:\SDL-2.0.14
+SDL_PATH = C:\SDL-2.0.14-x86
  
 DIRECTIVES += -I $(SDL_PATH)\include
  
