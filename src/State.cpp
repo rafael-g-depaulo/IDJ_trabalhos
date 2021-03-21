@@ -8,6 +8,9 @@ State::State(): bg(), music() {
 void State::LoadAssets() { }
 
 void State::Update(float dt) {
+  // i have no idea what dt if for this stops the "unuser parameter" warning
+  if (dt != 0) { cout << "State::Update() with dt != 0" << endl; }
+
   // if user pressed the close button or alt+F4
   bool userWantsOff = SDL_QuitRequested();
   if (userWantsOff) {

@@ -22,7 +22,15 @@ SDL_Renderer* Game::GetRenderer() {
   return (this->renderer);
 }
 
-// TODO: Game::Run()
+void Game::Run() {
+  while(!this->state->QuitRequested()) {
+    state->Update(0);
+    state->Render();
+    SDL_RenderPresent(this->renderer);
+    // frame delay
+    SDL_Delay(33);
+  }
+}
 
 Game::Game(string title, int width, int height) {
   // if has already been instanced, log and crash
