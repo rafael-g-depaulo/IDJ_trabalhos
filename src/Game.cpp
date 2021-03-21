@@ -12,14 +12,6 @@ Game& Game::GetInstance() {
     exit(0);
   }
   return *Game::instance;
-
-  // // if instance already exists
-  // if (Game::instance != nullptr)
-  //   return *Game::instance;
-
-  // // else, instantiate it
-  // Game::instance = new Game("", 100, 100);
-  // return *Game::instance;
 }
 
 Game::Game(string title, int width, int height) {
@@ -40,25 +32,27 @@ Game::Game(string title, int width, int height) {
     exit(0);
   }
 
-  cout << "Inicializando..." << endl;
+  cout << endl << "Inicializando..." << endl;
 
-  // The following code crashes in WSL because of complicated reasons.
-  // I will change to a Windows development environment and then un-comment it
+  int loaderMask = IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF;
+  int IMG_error = IMG_Init(loaderMask);
+  if (IMG_error != loaderMask) { 
+    cout << "IMG_Init não carregou todos os loaders pedidos. Bitmask carregada: " << IMG_error << endl;
+    exit(0);
+  }
 
-  // int IMG_error = IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF);
-  // if (IMG_error != 0) { 
-  //   cout << "IMG_Init retornou com erro " << IMG_error << ": " << SDL_GetError() << endl;
-  //   exit(0);
-  // }
+  int Mix_error = Mix_Init(MIX_INIT_OGG);
+  if (Mix_error != MIX_INIT_OGG) { 
+    cout << "Mix_Init não carregou todos os loaders pedidos. Bitmask carregada: " << MIX_INIT_OGG << endl;
+    exit(0);
+  }
 
-  // int Mix_error = Mix_Init(MIX_INIT_OGG);
-  // if (Mix_error != 0) { 
-  //   cout << "Mix_Init retornou com erro " << Mix_error << ": " << SDL_GetError() << endl;
-  //   exit(0);
-  // }
-
-  // Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096);
-  // Mix_AllocateChannels(32);
+  int Mix_audioError = Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024);
+  if (Mix_audioError != 0) {
+    cout << "Mix_OpenAudio retornou com erro " << Mix_audioError << endl;
+    exit(0);
+  }
+  Mix_AllocateChannels(32);
 
   Game::window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0);
   if (!window) {
