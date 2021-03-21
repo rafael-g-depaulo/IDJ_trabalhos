@@ -14,6 +14,16 @@ Game& Game::GetInstance() {
   return *Game::instance;
 }
 
+State& Game::GetState() {
+  return *(this->state);
+}
+
+SDL_Renderer* Game::GetRenderer() {
+  return (this->renderer);
+}
+
+// TODO: Game::Run()
+
 Game::Game(string title, int width, int height) {
   // if has already been instanced, log and crash
   if (Game::instance != nullptr) {
@@ -22,7 +32,7 @@ Game::Game(string title, int width, int height) {
   }
 
   // set instance
-  instance = this;
+  Game::instance = this;
 
   // initialice SDL, and crash if error
   // int SDL_error = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
@@ -55,22 +65,29 @@ Game::Game(string title, int width, int height) {
   Mix_AllocateChannels(32);
 
   Game::window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0);
-  if (!window) {
+  if (Game::window == nullptr) {
     cout << "Erro criando a janela" << endl;
     exit(0);
   }
 
   Game::renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+  if (Game::renderer == nullptr) {
+    cout << "Erro renderizando a janela" << endl;
+    exit(0);
+  }
+
+  // TODO: inicializar o state?
 }
 
 Game::~Game() {
   cout << "desinstanciando Game" << endl;
   delete this->state;
   
+  // a ordem importa. tem que ser na ordem inversa da inicialização
+  SDL_DestroyRenderer(renderer);
+  SDL_DestroyWindow(window);
   Mix_CloseAudio();
   Mix_Quit();
   IMG_Quit();
-  SDL_DestroyRenderer(renderer);
-  SDL_DestroyWindow(window);
   SDL_Quit();
 }
