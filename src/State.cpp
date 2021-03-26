@@ -1,7 +1,8 @@
 #include "../include/State.h"
 
-State::State(): bg("./assets/img/3.jpg"), music() {
+State::State(): bg("./assets/img/3.jpg"), music("./assets/audio/music.mp3") {
   this->quitRequested = false;
+  this->music.Play(-1);
 }
 
 // pre-carregar os assets aqui?

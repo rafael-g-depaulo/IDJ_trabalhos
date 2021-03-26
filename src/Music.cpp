@@ -14,6 +14,7 @@ bool Music::IsOpen() {
 }
 
 void Music::Open(string file) {
+  // cout << "loading music \"" << file << "\"" << endl;
   this->music = Mix_LoadMUS(file.c_str());
 
   if (!this->IsOpen()) {
