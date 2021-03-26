@@ -15,10 +15,9 @@ int main(int argc, char** argv) {
   Game *game = new Game("Teste", 1024, 600);
   *game = Game::GetInstance();
 
-  delete game;
-  cout << "Press ENTER to exit program..." << endl;
-  getchar();
+  game->Run();
 
+  delete game;
 
   return 0;
 }

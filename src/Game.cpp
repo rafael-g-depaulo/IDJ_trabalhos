@@ -44,7 +44,7 @@ Game::Game(string title, int width, int height) {
 
   // initialice SDL, and crash if error
   // int SDL_error = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
-  int SDL_error = SDL_Init( SDL_INIT_AUDIO | SDL_INIT_TIMER);
+  int SDL_error = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
   if (SDL_error != 0) {
     cout << "SDL_Init retornou com erro " << SDL_error << ": " << SDL_GetError() << endl;
     exit(0);
@@ -84,7 +84,7 @@ Game::Game(string title, int width, int height) {
     exit(0);
   }
 
-  // TODO: inicializar o state?
+  this->state = new State();
 }
 
 Game::~Game() {

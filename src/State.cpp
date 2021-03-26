@@ -1,6 +1,6 @@
 #include "../include/State.h"
 
-State::State(): bg(), music() {
+State::State(): bg("./assets/img/3.jpg"), music() {
   this->quitRequested = false;
 }
 
@@ -17,6 +17,10 @@ void State::Update(float dt) {
     this->quitRequested = true;
     return;
   }  
+}
+
+bool State::QuitRequested() {
+  return this->quitRequested;
 }
 
 void State::Render() {
