@@ -14,7 +14,7 @@ class Music {
     void Play(int times);
     void Stop(int msToStop);
     void Open(string file);
-    bool IsOpen;
+    bool IsOpen();
 
   private:
     Mix_Music* music;
