@@ -1,6 +1,5 @@
 #include "../include/Game.h"
 
-// used for the temporary sleep call
 #include <iostream>
 #include <unistd.h>
 
@@ -14,9 +13,7 @@ int main(int argc, char** argv) {
 
   Game *game = new Game("Teste", 1024, 600);
   *game = Game::GetInstance();
-
   game->Run();
-
   delete game;
 
   return 0;
