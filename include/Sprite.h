@@ -6,6 +6,7 @@
 
 using namespace std;
 
+// TODO: make sprite extend Component
 class Sprite {
   public:
     Sprite();

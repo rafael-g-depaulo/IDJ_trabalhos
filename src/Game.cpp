@@ -28,6 +28,7 @@ void Game::Run() {
     state->Render();
     SDL_RenderPresent(this->renderer);
     // frame delay
+    // TODO: have better frame delay
     SDL_Delay(33);
   }
 }
