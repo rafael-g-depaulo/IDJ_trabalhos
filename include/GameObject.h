@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 
+class GameObject;
+
 #include "./Component.h"
 #include "./Rect.h"
 

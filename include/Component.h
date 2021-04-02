@@ -2,18 +2,21 @@
 #define component_h
 
 #include <iostream>
+
+class Component;
+
 #include "./GameObject.h"
 
 class Component {
   public:
-    Component(const GameObject& associatedObj);
-    ~Component();
+    Component(GameObject& associatedObj);
+    virtual ~Component();
 
     virtual void Update(float dt);
     virtual void Render();
     virtual bool Is(std::string type);
 
-  private:
+  protected:
     GameObject& associated;
 };
 
