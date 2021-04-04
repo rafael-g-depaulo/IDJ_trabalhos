@@ -1,12 +1,17 @@
 #ifndef state_h
 #define state_h
 
+#include <memory>
+
 #include "Sprite.h"
 #include "Music.h"
+
+using namespace std;
 
 class State {
   public:
     State();
+    ~State();
 
     bool QuitRequested();
     void LoadAssets();
@@ -14,9 +19,10 @@ class State {
     void Render();
 
   private:
-    Sprite bg;
+    Sprite* bg;
     Music music;
     bool quitRequested;
+    vector<unique_ptr<GameObject>> objectArray;
 };
 
 #endif

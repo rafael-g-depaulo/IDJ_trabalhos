@@ -1,8 +1,17 @@
 #include "../include/State.h"
 
-State::State(): bg("./assets/img/3.jpg"), music("./assets/audio/music.mp3") {
+State::State(): music("./assets/audio/music.mp3") {
   this->quitRequested = false;
   this->music.Play(-1);
+  
+  // initialize background
+  auto bgGO = new GameObject();
+  this->bg = new Sprite(*bgGO, "./assets/img/3.jpg");
+  this->objectArray.push_back(unique_ptr<GameObject> (bgGO));
+}
+
+State::~State() {
+  this->objectArray.clear();
 }
 
 // pre-carregar os assets aqui?
@@ -25,7 +34,7 @@ bool State::QuitRequested() {
 }
 
 void State::Render() {
-  if (bg.IsOpen()) {
-    this->bg.Render(0, 0);
+  if (bg->IsOpen()) {
+    this->bg->Render(0, 0);
   }
 }
