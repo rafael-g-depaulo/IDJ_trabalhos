@@ -16,7 +16,7 @@ class Sprite : Component {
 
     void Open(string file);
     void SetClip(int x, int y, int w, int h);
-    void Render(int x, int y);
+    void Render();
     int GetWidth();
     int GetHeight();
     bool IsOpen();
