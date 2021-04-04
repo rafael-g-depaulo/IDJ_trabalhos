@@ -21,6 +21,7 @@ void GameObject::Update(float dt) {
 }
 
 void GameObject::Render() {
+  // cout << "Rendering Game Object with " << this->components.size() << " components" << endl;
   for (const auto component : this->components)
     component->Render();
 }
