@@ -3,13 +3,13 @@
 #include "../include/Sound.h"
 #include "../include/Face.h"
 
-State::State(): music() {
+State::State(): music("./assets/audio/music.mp3") {
   this->quitRequested = false;
   this->music.Play(-1);
   
   // initialize background
   auto bgGO = new GameObject();
-  this->bg = new Sprite(*bgGO, "./assets/img/1.jpg");
+  this->bg = new Sprite(*bgGO, "./assets/img/3.jpg");
   bgGO->AddComponent((Component*) this->bg);
   this->objectArray.emplace_back((unique_ptr<GameObject>) bgGO);
 }
@@ -114,12 +114,8 @@ bool State::QuitRequested() {
 }
 
 void State::Render() {
-  if (bg->IsOpen()) {
-    // this->bg->Render(0, 0);
-  }
-
   for (auto i = this->objectArray.begin(); i != this->objectArray.end(); i++) {
-    cout << "rendering object" << endl;
+    // cout << "rendering object" << endl;
     auto object = i->get();
     object->Render();
   }

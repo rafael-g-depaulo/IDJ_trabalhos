@@ -19,6 +19,8 @@ Sound::~Sound() {
   }
 }
 
+// !IMPORTANT
+// TODO: fix sound play (not working)
 void Sound::Play(int times) {
   // this -1 means "use whatever channel is available"
   int timesLooped = times - 1;
