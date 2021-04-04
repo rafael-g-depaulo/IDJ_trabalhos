@@ -3,12 +3,11 @@
 
 using namespace std;
 
-Sprite::Sprite() {
+Sprite::Sprite(GameObject& associated): Component(associated) {
   this->texture = nullptr;
 }
 
-Sprite::Sprite(string file) {
-  this->texture = nullptr;
+Sprite::Sprite(GameObject& associated, string file): Sprite(associated) {
   this->Open(file);
 }
 
@@ -19,6 +18,7 @@ void Sprite::Open(string file) {
   }
 
   // load file
+  // this
   SDL_Renderer* renderer = Game::GetInstance().GetRenderer();
   this->texture = IMG_LoadTexture(renderer, file.c_str());
 

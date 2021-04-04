@@ -4,14 +4,15 @@
 #include <iostream>
 #include "SDL2/SDL_image.h" 
 
+#include "./Component.h"
+
 using namespace std;
 
-// TODO: make sprite extend Component
-class Sprite {
+class Sprite : Component {
   public:
-    Sprite();
+    Sprite(GameObject& associated);
+    Sprite(GameObject& associated, string file);
     ~Sprite();
-    Sprite(string file);
 
     void Open(string file);
     void SetClip(int x, int y, int w, int h);
