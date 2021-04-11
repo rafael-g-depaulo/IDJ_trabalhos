@@ -22,12 +22,16 @@ State::~State() {
 void State::LoadAssets() { }
 
 void State::Update(float dt) {
-  // i have no idea what dt is for this stops the "unuser parameter" warning
-  if (dt != 0) { cout << "State::Update() with dt != 0" << endl; }
-
   // process input
   Input();
 
+  // update all game objects
+  for (auto i = this->objectArray.begin(); i != this->objectArray.end(); i++) {
+    auto go = i->get();
+    go->Update(dt);
+  }
+
+  // remove all dead game objects
   for (auto i = this->objectArray.begin(); i != this->objectArray.end(); i++) {
     auto object = i->get();
     if (object->IsDead()) {

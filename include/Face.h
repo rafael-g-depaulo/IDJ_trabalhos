@@ -14,8 +14,12 @@ class Face : Component {
     bool Is(std::string type);
 
     void Damage(int damage);
+
   private:
     int hitpoints;
+    bool isDying;
+    float total_death_time;
+    float death_time;
 };
 
 #endif

@@ -5,6 +5,8 @@ using namespace std;
 
 Face::Face(GameObject& associated): Component(associated) {
   this->hitpoints = 30;
+  this->total_death_time = 1000;  // spend 1s dying before deleting object
+  this->isDying = false;
 }
 
 Face::~Face() {
@@ -20,15 +22,24 @@ void Face::Damage(int damage) {
   auto sound = (Sound*) this->associated.GetComponent("Sound");
   if (sound != nullptr) {
     cout << "playing death sound" << endl;
-    // TODO: fix sound play (not working)
     sound->Play(1);  
   }
   
-  // remove object this is associated with
-  this->associated.RequestDelete();
+  // initiate death counter (i.e.: wait until death sound finishes before deleting object)
+  this->isDying = true;
 }
 
-void Face::Update(float dt) { if (dt) {} }
+void Face::Update(float dt) {
+  // if this is dying, uptade death timer
+  if (this->isDying) {
+    this->death_time += dt;
+  
+    // if already time to die, do so and remove the object this is associated with
+    if (this->death_time >= this->total_death_time)
+      this->associated.RequestDelete();
+  }
+}
+
 void Face::Render() {}
 
 bool Face::Is(string type) { return type == "Face"; }
