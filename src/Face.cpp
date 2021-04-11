@@ -27,6 +27,10 @@ void Face::Damage(int damage) {
   
   // initiate death counter (i.e.: wait until death sound finishes before deleting object)
   this->isDying = true;
+
+  // remove sprite
+  auto sprite = this->associated.GetComponent("Sprite");
+  this->associated.RemoveComponent(sprite);
 }
 
 void Face::Update(float dt) {

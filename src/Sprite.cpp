@@ -71,3 +71,6 @@ Sprite::~Sprite() {
     SDL_DestroyTexture(this->texture);
   }
 }
+
+bool Sprite::Is(string type) { return type == "Sprite"; }
+void Sprite::Update(float dt) { if (dt) {} }

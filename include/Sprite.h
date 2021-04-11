@@ -16,10 +16,14 @@ class Sprite : Component {
 
     void Open(string file);
     void SetClip(int x, int y, int w, int h);
-    void Render();
+    
     int GetWidth();
     int GetHeight();
     bool IsOpen();
+
+    void Update(float dt);
+    void Render();
+    bool Is(std::string type);
 
   private:
     SDL_Texture* texture;
