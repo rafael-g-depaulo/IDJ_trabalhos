@@ -1,3 +1,4 @@
+#include <chrono>
 #include "SDL2/SDL_image.h"
 #include "SDL2/SDL_mixer.h"
 
@@ -23,12 +24,30 @@ SDL_Renderer* Game::GetRenderer() {
 }
 
 void Game::Run() {
-  while(!this->state->QuitRequested()) {
-    state->Update(0);
+  auto previous_frame = chrono::steady_clock::now();
+  auto current_frame = previous_frame;
+
+  // cout << "started at time " << start_time.time_since_epoch().count() << endl;
+  while (!this->state->QuitRequested()) {
+    // calculate time since last frame and update current and previous frame
+    previous_frame = current_frame;
+    current_frame = chrono::steady_clock::now();
+    auto deltaTime = chrono::duration_cast<chrono::milliseconds>(current_frame - previous_frame);
+    // cout << deltaTime.count() << "ms ellapsed since last frame" << endl;
+
+    state->Update((float) deltaTime.count());
     state->Render();
     SDL_RenderPresent(this->renderer);
-    // frame delay
-    SDL_Delay(33);
+
+    // get the time taken to update/render, and take that into account for frame delay
+    auto after_render = chrono::steady_clock::now();
+    auto calc_time = chrono::duration_cast<chrono::milliseconds>(after_render - current_frame);
+    // add one beause 0.9ms get's rounded down to 0ms, and 1ms is better for our use case
+    Uint32 c_time = (Uint32) calc_time.count() + 1;
+    Uint32 frame_delay = c_time >= 33 ? 0 : 33 - c_time;
+
+    // cout << "took " << c_time << "ms to calculate frame. will wait " << frame_delay << "ms until next frame is calculated" << endl;
+    SDL_Delay(frame_delay);
   }
 }
 
@@ -60,7 +79,7 @@ Game::Game(string title, int width, int height) {
 
   int Mix_error = Mix_Init(MIX_INIT_OGG);
   if (Mix_error != MIX_INIT_OGG) { 
-    cout << "Mix_Init não carregou todos os loaders pedidos. Bitmask carregada: " << MIX_INIT_OGG << endl;
+    cout << "Mix_Init não carregou todos os loaders pedidos. Bitmask carregada: " << Mix_error << endl;
     exit(0);
   }
 
