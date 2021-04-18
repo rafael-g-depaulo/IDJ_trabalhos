@@ -47,14 +47,17 @@ void Sprite::SetClip(int x, int y, int w, int h) {
 }
 
 void Sprite::Render() {
+  return this->Render(this->associated.box.x, this->associated.box.y, this->GetWidth(), this->GetHeight());
+}
+void Sprite::Render(int x, int y, int w, int h) {
   SDL_Renderer* renderer = Game::GetInstance().GetRenderer();
 
   // create rectangle for the sprite's size/location in the game window
   SDL_Rect dst;
-  dst.x = this->associated.box.x;
-  dst.y = this->associated.box.y;
-  dst.w = this->GetWidth();
-  dst.h = this->GetHeight();
+  dst.x = x;
+  dst.y = y;
+  dst.w = w;
+  dst.h = h;
   
   SDL_RenderCopy(renderer, this->texture, &this->clipRect, &dst);
 }

@@ -23,6 +23,7 @@ class Sprite : Component {
 
     void Update(float dt);
     void Render();
+    void Render(int x, int y, int w, int h);
     bool Is(std::string type);
 
   private:
