@@ -12,4 +12,4 @@ void Component::Render() {}
 bool Component::Is(string type) {
   if (type == "") return false;
   return false;
-  }
+}
