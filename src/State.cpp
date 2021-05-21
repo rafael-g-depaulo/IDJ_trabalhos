@@ -17,7 +17,7 @@ State::~State() {
 void State::LoadAssets() {
   // initialize background
   auto bgGO = new GameObject();
-  this->bg = new Sprite(*bgGO, "./assets/img/3.jpg");
+  this->bg = new Sprite(*bgGO, "./assets/img/ocean.jpg");
   bgGO->AddComponent((Component*) this->bg);
   this->objectArray.emplace_back((unique_ptr<GameObject>) bgGO);
 
@@ -25,7 +25,7 @@ void State::LoadAssets() {
   auto tmGO = new GameObject();
   tmGO->AddComponent((Component*) new TileMap(*tmGO, string("./assets/map/tileMap.txt"), new TileSet(64, 64, "./assets/img/tileset.png")));
   this->objectArray.emplace_back((unique_ptr<GameObject>) tmGO);
-  //TODO: a especificação mandou desalocar o TileSet na hora certa. lembre de dar uma olhada nisso depois quando vc entender o que está acontecendo aqui
+  // TODO: a especificação mandou desalocar o TileSet na hora certa. lembre de dar uma olhada nisso depois quando vc entender o que está acontecendo aqui
 }
 
 void State::Update(float dt) {
