@@ -38,7 +38,6 @@ void addLineContentToVector(string line, vector<int>& vec) {
   istringstream lineStream(line);
   string token;
   while (getline(lineStream, token, ',')) {
-    cout << token << ", ";
     vec.push_back(atoi(token.c_str()));
   }
 }

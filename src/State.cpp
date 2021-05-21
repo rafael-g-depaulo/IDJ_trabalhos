@@ -1,25 +1,31 @@
 #include "../include/State.h"
 
+#include "../include/TileMap.h"
 #include "../include/Sound.h"
 #include "../include/Face.h"
 
 State::State(): music("./assets/audio/music.mp3") {
   this->quitRequested = false;
   this->music.Play(-1);
-  
-  // initialize background
-  auto bgGO = new GameObject();
-  this->bg = new Sprite(*bgGO, "./assets/img/3.jpg");
-  bgGO->AddComponent((Component*) this->bg);
-  this->objectArray.emplace_back((unique_ptr<GameObject>) bgGO);
+  this->LoadAssets();
 }
 
 State::~State() {
   this->objectArray.clear();
 }
 
-// pre-carregar os assets aqui?
-void State::LoadAssets() { }
+void State::LoadAssets() {
+  // initialize background
+  auto bgGO = new GameObject();
+  this->bg = new Sprite(*bgGO, "./assets/img/3.jpg");
+  bgGO->AddComponent((Component*) this->bg);
+  this->objectArray.emplace_back((unique_ptr<GameObject>) bgGO);
+
+  // initialize TileMap
+  auto tmGO = new GameObject();
+  tmGO->AddComponent((Component*) new TileMap(*tmGO, string("./assets/map/tileMap.txt"), new TileSet(64, 64, "./assets/img/tileset.png")));
+  //TODO: a especificação mandou desalocar o TileSet na hora certa. lembre de dar uma olhada nisso depois quando vc entender o que está acontecendo aqui
+}
 
 void State::Update(float dt) {
   // process input
