@@ -11,8 +11,14 @@ TileMap::TileMap(GameObject& associatedObj, string file, TileSet* tileSet): Comp
 
 // TODO
 void TileMap::Update(float dt) {}
-// TODO
-void TileMap::Render() {}
+
+void TileMap::Render() {
+  int cameraX = this->associated.box.x;
+  int cameraY = this->associated.box.y;
+
+  for (int layer = 0; layer < this->mapDepth; layer++)
+    this->RenderLayer(layer, cameraX, cameraY);
+}
 
 vector<int> getMapDimensions(string dimensionsStr) {
   vector<int> dims;
