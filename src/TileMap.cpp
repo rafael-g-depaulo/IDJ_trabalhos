@@ -32,7 +32,7 @@ vector<int> getMapDimensions(string dimensionsStr) {
   }
 
   // push into vector
-  for (int i = 1; i < regexResults.size(); i++) {
+  for (unsigned int i = 1; i < regexResults.size(); i++) {
     dims.push_back(stoi(regexResults[i]));
   }
   

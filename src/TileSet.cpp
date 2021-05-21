@@ -8,15 +8,23 @@ TileSet::TileSet(int tileWidth, int tileHeight, string file): tileSet(*(new Game
 }
 
 void TileSet::RenderTile(unsigned int index, float x, float y) {
+
+  // if index is 0, don't render anything
+  if (index == 0) return;
+
+  // this change is necessary because the tileMap given starts at 1, but tileIndexes start at 0
+  unsigned int tileIndex = index - 1;
+
   // check if index is valid
   unsigned int maxIndex = this->columns * this->rows;
-  if (index >= maxIndex) {
-    cout << "tried to render TileSet tile, but given index (" << index << ") was out of bounds (max: " << maxIndex << ")" << endl;
+  if (tileIndex >= maxIndex) {
+    cout << "tried to render TileSet tile, but given index (" << tileIndex << ") was out of bounds (max: " << maxIndex << ")" << endl;
     exit(0);
   }
 
-  // TODO: fix. this whole logic is missing something
-  // i'm not using index here. probably i need to do something to (temporarily?) clip the Sprite to the tile given by index
+  int tileX = tileIndex % this->columns;
+  int tileY = tileIndex / this->columns;
+  this->tileSet.SetClip(tileX * this->TileWidth, tileY * this->TileWidth, this->TileWidth, this->TileHeight);
 
   this->tileSet.Render((int) x, (int) y, this->GetTileWidth(), this->GetTileHeight());
 }

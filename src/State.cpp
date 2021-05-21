@@ -24,6 +24,7 @@ void State::LoadAssets() {
   // initialize TileMap
   auto tmGO = new GameObject();
   tmGO->AddComponent((Component*) new TileMap(*tmGO, string("./assets/map/tileMap.txt"), new TileSet(64, 64, "./assets/img/tileset.png")));
+  this->objectArray.emplace_back((unique_ptr<GameObject>) tmGO);
   //TODO: a especificação mandou desalocar o TileSet na hora certa. lembre de dar uma olhada nisso depois quando vc entender o que está acontecendo aqui
 }
 
@@ -124,10 +125,9 @@ bool State::QuitRequested() {
 }
 
 void State::Render() {
+  // cout << "rendering State. Currently has " << this->objectArray.size() << " objects" << endl;
   for (auto i = this->objectArray.begin(); i != this->objectArray.end(); i++) {
-    // cout << "rendering object" << endl;
     auto object = i->get();
     object->Render();
   }
-
 }
