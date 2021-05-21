@@ -9,7 +9,6 @@ TileMap::TileMap(GameObject& associatedObj, string file, TileSet* tileSet): Comp
   this->Load(file);
 }
 
-// TODO
 void TileMap::Update(float dt) {}
 
 void TileMap::Render() {

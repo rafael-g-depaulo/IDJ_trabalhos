@@ -1,9 +1,9 @@
 #include "../include/Sound.h"
+#include "../include/Resources.h"
 
 using namespace std;
 
 Sound::Sound(GameObject& associated): Component(associated) {
-  // this->associated = associated;
   this->chunk = nullptr;
 }
 
@@ -13,10 +13,8 @@ Sound::Sound(GameObject& associated, string file): Sound(associated) {
 }
 
 Sound::~Sound() {
-  if (this->chunk != nullptr) {
+  if (this->chunk != nullptr)
     this->Stop(0);
-    Mix_FreeChunk(this->chunk);
-  }
 }
 
 void Sound::Play(int times) {
@@ -34,14 +32,7 @@ void Sound::Stop(int msToStop) {
 }
 
 void Sound::Open(string file) {
-  const auto chunk = Mix_LoadWAV(file.c_str());
-  if (chunk == nullptr) {
-    cout << "Mix_LoadWAV não carregou o arquivo de áudio pedido" << endl;
-    exit(0);
-    return;
-  }
-
-  this->chunk = chunk;
+  this->chunk = Resources::GetSound(file);
 }
 
 bool Sound::IsOpen() { return chunk != nullptr; }

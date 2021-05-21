@@ -3,6 +3,7 @@
 #include "SDL2/SDL_mixer.h"
 
 #include "../include/Game.h"
+#include "../include/Resources.h"
 
 // game instance
 Game* Game::instance;
@@ -49,6 +50,11 @@ void Game::Run() {
     // cout << "took " << c_time << "ms to calculate frame. will wait " << frame_delay << "ms until next frame is calculated" << endl;
     SDL_Delay(frame_delay);
   }
+
+  // unload assets and empty caches
+  Resources::ClearImages();
+  Resources::ClearMusics();
+  Resources::ClearSounds();
 }
 
 Game::Game(string title, int width, int height) {

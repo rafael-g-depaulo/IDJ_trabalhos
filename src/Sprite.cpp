@@ -1,6 +1,8 @@
 #include "../include/Sprite.h"
 #include "../include/Game.h"
 
+#include "../include/Resources.h"
+
 using namespace std;
 
 Sprite::Sprite(GameObject& associated): Component(associated) {
@@ -12,15 +14,9 @@ Sprite::Sprite(GameObject& associated, string file): Sprite(associated) {
 }
 
 void Sprite::Open(string file) {
-  // remove previous texture, if already had a file loaded
-  if (this->texture != nullptr) {
-    SDL_DestroyTexture(this->texture);
-  }
 
   // load file
-  // this
-  SDL_Renderer* renderer = Game::GetInstance().GetRenderer();
-  this->texture = IMG_LoadTexture(renderer, file.c_str());
+  this->texture = Resources::GetImage(file);
 
   // if file failed to load, crash gracefully (log and explode)
   if (this->texture == nullptr) {
@@ -70,9 +66,7 @@ bool Sprite::IsOpen() {
 }
 
 Sprite::~Sprite() {
-  if (this->texture != nullptr) {
-    SDL_DestroyTexture(this->texture);
-  }
+  // doesn't deallocate texture anymore. this is dealt with by Resources now
 }
 
 bool Sprite::Is(string type) { return type == "Sprite"; }
