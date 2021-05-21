@@ -15,8 +15,9 @@ void TileSet::RenderTile(unsigned int index, float x, float y) {
     exit(0);
   }
 
-  // i think this is wrong but i'm not sure why
-  // TODO: fix maybe?
+  // TODO: fix. this whole logic is missing something
+  // i'm not using index here. probably i need to do something to (temporarily?) clip the Sprite to the tile given by index
+
   this->tileSet.Render((int) x, (int) y, this->GetTileWidth(), this->GetTileHeight());
 }
 

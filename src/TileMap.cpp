@@ -76,8 +76,17 @@ int& TileMap::At(int x, int y, int z) {
   return this->tileMatrix[index];
 }
 
-// TODO
-void TileMap::RenderLayer(int layer, int cameraX, int cameraY) {}
+void TileMap::RenderLayer(int layer, int cameraX, int cameraY) {
+  // iterate over X and Y axis
+  for (int x = 0; x < this->mapWidth; x++)
+  for (int y = 0; y < this->mapHeight; y++) {
+    // calculate where in the window to render tile (take into account the given camera offset)
+    int xPos = x * this->tileSet->GetTileWidth() + cameraX;
+    int yPos = y * this->tileSet->GetTileHeight() + cameraY;
+    // call tileSet to render the correct tile at that position
+    this->tileSet->RenderTile(this->At(x, y, layer), xPos, yPos);
+  }
+}
 
 bool TileMap::Is(string type) { return type == "TileMap"; }
 void TileMap::SetTileSet(TileSet* tileSet) { this->tileSet = tileSet; }
